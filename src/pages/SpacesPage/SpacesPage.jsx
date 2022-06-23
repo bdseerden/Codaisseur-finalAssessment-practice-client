@@ -4,7 +4,7 @@ import { selectAllSpaces } from "../../store/space/selectors"
 import { useEffect } from "react";
 import { fetchSpaces } from "../../store/space/actions";
 import { useDispatch, useSelector } from "react-redux";
-import SpaceCard from "../../components/SpaceCard/SpaceCard"
+import SpaceCard from "../../components/SpaceCard"
 
 export default function SpacesPage() {
   const dispatch = useDispatch();

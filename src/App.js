@@ -8,6 +8,7 @@ import MessageBox from "./components/MessageBox";
 import SignUp from "./pages/SignUpPage/SignUpPage";
 import Login from "./pages/LoginPage/LoginPage";
 import SpacesPage from "./pages/SpacesPage/SpacesPage";
+import SpaceDetailsPage from "./pages/SpaceDetailsPage/SpaceDetailsPage";
 
 import { useDispatch, useSelector } from "react-redux";
 import { selectAppLoading } from "./store/appState/selectors";
@@ -35,6 +36,7 @@ function App() {
       {isLoading ? <Loading /> : null}
       <Routes>
         <Route exact path="/" element={<SpacesPage />} />
+        <Route exact path="/spaces/:id" element={<SpaceDetailsPage />} />
         <Route path="/other" element={<Other />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
