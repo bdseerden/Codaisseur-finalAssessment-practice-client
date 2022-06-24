@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import React from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import SpaceCard from "../../components/SpaceCard";
 import StoryCard from "../../components/StoryCard";
 import Container from "react-bootstrap/Container";
 import Loading from "../../components/Loading";
-import { fetchSpaceById } from "../../store/space/actions";
-import { selectSpaceDetails } from "../../store/space/selectors";
+import { selectToken, selectMySpace } from "../../store/user/selectors"
 
-export default function SpaceDetails() {
-  const { id } = useParams();
-  const space = useSelector(selectSpaceDetails);
-  const dispatch = useDispatch();
+export default function MySpacePage() {
+  const token = useSelector(selectToken)
+  const space = useSelector(selectMySpace);
+  const navigate = useNavigate();
+  
 
-
-  useEffect(() => {
-    dispatch(fetchSpaceById(id));
-  }, [dispatch, id]);
+  if (token === null) {
+    navigate("/");
+  }
 
   if (space === null) {
     return <Loading />;
@@ -33,7 +32,7 @@ export default function SpaceDetails() {
         showLink={false}
       />
       <Container>
-        <StoryCard space={space} />
+        <StoryCard owner={true} space={space} />
       </Container>
     </>
   );

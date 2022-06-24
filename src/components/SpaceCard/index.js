@@ -1,10 +1,10 @@
 import React from "react";
-import AccordionItem from "react-bootstrap/AccordionItem"
+import AccordionItem from "react-bootstrap/AccordionItem";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 export default function SpaceCard(props) {
-  console.log(props.color)
+  console.log(props.color);
   return (
     <AccordionItem
       style={{
