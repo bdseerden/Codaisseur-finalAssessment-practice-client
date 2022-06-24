@@ -1,10 +1,7 @@
 import React from "react";
 import Carousel from "react-bootstrap/Carousel";
-import { useDispatch } from "react-redux";
 
 export default function StoryCard(props) {
-  const dispatch = useDispatch();
-
   return (
     <Carousel className="mt-5">
       {props.space.stories.map((story) => {
