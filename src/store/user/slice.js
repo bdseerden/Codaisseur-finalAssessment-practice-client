@@ -25,7 +25,7 @@ export const userSlice = createSlice({
     },
     storyDeleteSuccess: (state, action) => {
       const storyId = action.payload;
-      state.user.profile.space.stories = state.space.stories.filter(
+      state.profile.space.stories = state.profile.space.stories.filter(
         (s) => s.id !== storyId
       );
     },

@@ -126,3 +126,29 @@ export const getUserWithStoredToken = () => {
     }
   };
 };
+
+export const deleteStory = (storyId) => {
+  return async (dispatch, getState) => {
+    dispatch(appLoading());
+    const { profile, token } = getState().user;
+    const spaceId = profile.space.id;
+    // make an axios request to delete
+    // and console.log the response if success
+    try {
+      const response = await myAxios.delete(
+        `/spaces/${spaceId}/stories/${storyId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      console.log("Story deleted?", response.data);
+      dispatch(storyDeleteSuccess(storyId));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      console.error(e);
+    }
+  };
+};
