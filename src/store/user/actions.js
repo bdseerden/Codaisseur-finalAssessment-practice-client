@@ -8,6 +8,7 @@ import {
   logOut,
   tokenStillValid,
   storyDeleteSuccess,
+  storyPostSuccess,
 } from "./slice";
 import myAxios from "../../axios";
 
@@ -149,6 +150,39 @@ export const deleteStory = (storyId) => {
       dispatch(appDoneLoading());
     } catch (e) {
       console.error(e);
+    }
+  };
+};
+
+export const postStory = (name, content, imageUrl) => {
+  return async (dispatch, getState) => {
+    try {
+      const { profile, token } = getState().user;
+      // console.log(name, content, imageUrl);
+      dispatch(appLoading());
+
+      const response = await axios.post(
+        `${apiUrl}/spaces/${profile.space.id}/stories`,
+        {
+          name,
+          content,
+          imageUrl,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      // console.log("Yep!", response);
+      dispatch(
+        showMessageWithTimeout("success", false, response.data.message, 3000)
+      );
+      dispatch(storyPostSuccess(response.data.story));
+      dispatch(appDoneLoading());
+    } catch (e) {
+      console.log(e.message);
     }
   };
 };

@@ -1,8 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import SpaceCard from "../../components/SpaceCard";
+import Button from "react-bootstrap/Button"
+import Card from "react-bootstrap/Card";
 import StoryCard from "../../components/StoryCard";
+import StoryForm from "./StoryForm"
 import Container from "react-bootstrap/Container";
 import Loading from "../../components/Loading";
 import { selectToken, selectMySpace } from "../../store/user/selectors"
@@ -10,6 +14,7 @@ import { selectToken, selectMySpace } from "../../store/user/selectors"
 export default function MySpacePage() {
   const token = useSelector(selectToken)
   const space = useSelector(selectMySpace);
+  const [postStoryMode, setpostStoryMode] = useState(false);
   const navigate = useNavigate();
   
 
@@ -32,8 +37,23 @@ export default function MySpacePage() {
         showLink={false}
       />
       <Container>
+      <Card>    
+            <Button
+              onClick={() => setpostStoryMode(!postStoryMode)}
+              className="mt-2"
+            >
+              {postStoryMode ? "Close" : "Post a cool story bro"}
+            </Button>
+          </Card>
+
+        {postStoryMode && (
+        <Card>
+          <StoryForm />
+        </Card>
+        )}
         <StoryCard owner={true} space={space} />
       </Container>
+
     </>
   );
 }
