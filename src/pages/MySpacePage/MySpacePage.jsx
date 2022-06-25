@@ -10,11 +10,14 @@ import StoryForm from "./StoryForm"
 import Container from "react-bootstrap/Container";
 import Loading from "../../components/Loading";
 import { selectToken, selectMySpace } from "../../store/user/selectors"
+import MySpaceForm from "./MySpaceForm";
+
 
 export default function MySpacePage() {
   const token = useSelector(selectToken)
   const space = useSelector(selectMySpace);
   const [postStoryMode, setpostStoryMode] = useState(false);
+  const [editMode, setEditMode] = useState(false)
   const navigate = useNavigate();
   
 
@@ -37,7 +40,10 @@ export default function MySpacePage() {
         showLink={false}
       />
       <Container>
-      <Card>    
+      <Card>
+            <Button onClick={() => setEditMode(!editMode)}>
+              {editMode ? "Close" : "Edit my space"}
+            </Button>
             <Button
               onClick={() => setpostStoryMode(!postStoryMode)}
               className="mt-2"
@@ -49,6 +55,11 @@ export default function MySpacePage() {
         {postStoryMode && (
         <Card>
           <StoryForm />
+        </Card>
+        )}
+        {editMode && (
+        <Card>
+          <MySpaceForm />
         </Card>
         )}
         <StoryCard owner={true} space={space} />

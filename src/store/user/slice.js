@@ -32,6 +32,12 @@ export const userSlice = createSlice({
     storyPostSuccess: (state, action) => {
       state.profile.space.stories.push(action.payload);
     },
+    spaceUpdated: (state, action) => {
+      state.profile.space = {
+        ...action.payload,
+        stories: state.profile.space.stories,
+      };
+    },
   },
 });
 
@@ -41,6 +47,7 @@ export const {
   tokenStillValid,
   storyDeleteSuccess,
   storyPostSuccess,
+  spaceUpdated,
 } = userSlice.actions;
 
 export default userSlice.reducer;
